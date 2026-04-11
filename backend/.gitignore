@@ -1,0 +1,21 @@
+# Entorno virtual
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Base de datos local
+*.db
+*.db-shm
+*.db-wal
+
+# Variables de entorno — NUNCA subir
+.env
+
+# Archivos generados
+pdfs/
+
+# IDE
+.DS_Store
+.idea/
+.vscode/
