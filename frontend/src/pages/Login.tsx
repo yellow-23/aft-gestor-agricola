@@ -48,7 +48,7 @@ export function LoginPage() {
               <input
                 id="login-username"
                 type="text"
-                placeholder="tito"
+                placeholder="Username"
                 value={username}
                 onChange={e => setUsername(e.target.value)}
                 required
