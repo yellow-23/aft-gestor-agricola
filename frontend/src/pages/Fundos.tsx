@@ -9,7 +9,7 @@ interface FundoForm {
   nombre_empresa: string; rut_empresa: string;
 }
 const defaultForm: FundoForm = {
-  nombre: '', direccion: '', representante_legal: 'Rodrigo Flores Villegas',
+  nombre: '', direccion: '', representante_legal: 'Alberto Flores Villegas',
   nombre_empresa: 'AFT Servicios SpA', rut_empresa: '77.605.354-6',
 };
 

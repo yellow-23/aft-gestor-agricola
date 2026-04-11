@@ -124,7 +124,7 @@ def generar_contrato(contrato, trabajador, fundo) -> bytes:
 
     # Empleador
     story.append(Paragraph("<b>EMPLEADOR:</b>", s["normal"]))
-    rep = fundo.representante_legal or "Rodrigo Flores Villegas"
+    rep = fundo.representante_legal or "Alberto Flores Villegas"
     story.append(Paragraph(
         f"<b>{fundo.nombre_empresa}</b>, RUT N° <b>{fundo.rut_empresa}</b>, "
         f"representada legalmente por don(ña) <b>{rep}</b>, "
