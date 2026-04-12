@@ -33,7 +33,7 @@ export function LoginPage() {
             <Sprout size={34} color="#020c07" />
           </div>
           <div>
-            <h1>AFT Servicios</h1>
+            <h1>Alberto</h1>
             <p>Sistema de contratación agrícola</p>
           </div>
         </div>
@@ -87,7 +87,7 @@ export function LoginPage() {
         </form>
 
         <p style={{ textAlign: 'center', marginTop: 28, fontSize: 11, color: 'var(--text-3)' }}>
-          Acceso privado · AFT Servicios SpA
+          Acceso privado · Alberto
         </p>
       </div>
     </div>

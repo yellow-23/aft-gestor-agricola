@@ -57,7 +57,7 @@ export function ContratosPage() {
               <Search size={14} />
               <input
                 id="buscar-contrato"
-                placeholder="Trabajador, fundo, faena..."
+                placeholder="Trabajador, empresa, faena..."
                 value={buscar}
                 onChange={e => setBuscar(e.target.value)}
               />

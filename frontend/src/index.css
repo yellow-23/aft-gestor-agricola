@@ -477,7 +477,7 @@ img{display:block;max-width:100%}
 ═══════════════════════════════════════════════════════════════════════════ */
 .steps{
   display:flex;align-items:center;gap:0;
-  margin-bottom:32px;
+  margin-bottom:32px; overflow-x: auto; padding-bottom: 8px;
 }
 .step{
   display:flex;align-items:center;gap:8px;
@@ -597,7 +597,8 @@ img{display:block;max-width:100%}
   .header-nav{display:none}
   .mobile-nav{display:flex}
   .form-grid,.form-grid-3{grid-template-columns:1fr}
-  .contract-pdfs{display:none}
+  .contract-card { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .contract-pdfs { display: flex; flex-wrap: wrap; width: 100%; border-top: 1px solid var(--border); padding-top: 12px; }
   .workers-grid{grid-template-columns:1fr}
 }
 @media(max-width:480px){

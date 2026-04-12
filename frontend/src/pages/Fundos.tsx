@@ -9,8 +9,9 @@ interface FundoForm {
   nombre_empresa: string; rut_empresa: string;
 }
 const defaultForm: FundoForm = {
-  nombre: '', direccion: '', representante_legal: 'Alberto Flores Villegas',
-  nombre_empresa: 'AFT Servicios SpA', rut_empresa: '77.605.354-6',
+  nombre: '', direccion: '',
+  nombre_empresa: '', rut_empresa: '',
+  representante_legal: ''
 };
 
 export function FundosPage() {
@@ -57,11 +58,11 @@ export function FundosPage() {
       <div className="page">
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16 }}>
           <div>
-            <h1 className="page-title">Fundos</h1>
+            <h1 className="page-title">Empresas</h1>
             <p className="page-sub">Empresas y lugares donde van los trabajadores</p>
           </div>
           <button className="btn btn-primary" onClick={() => abrirModal()} id="btn-nuevo-fundo">
-            <Plus size={14} /> Nuevo fundo
+            <Plus size={14} /> Nueva empresa
           </button>
         </div>
 
@@ -70,10 +71,10 @@ export function FundosPage() {
         ) : fundos.length === 0 ? (
           <div className="empty" style={{ marginTop: 24 }}>
             <div className="empty-icon"><Building2 size={24} /></div>
-            <h3>Sin fundos</h3>
-            <p>Crea el primer fundo para poder asignar trabajadores.</p>
-            <button className="btn btn-primary" onClick={() => abrirModal()} style={{ marginTop: 4 }}>
-              <Plus size={14} /> Crear fundo
+            <h3>Sin empresas</h3>
+            <p>Crea la primera empresa/lugar de trabajo para poder asignar trabajadores.</p>
+            <button className="btn btn-primary" onClick={() => abrirModal()} style={{ marginTop: 12 }}>
+              <Plus size={14} /> Crear empresa
             </button>
           </div>
         ) : (
@@ -106,15 +107,15 @@ export function FundosPage() {
         <div className="overlay" onClick={() => setShowModal(false)}>
           <div className="modal" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
-              <h3>{editando ? 'Editar fundo' : 'Nuevo fundo'}</h3>
+              <h3>{editando ? 'Editar empresa' : 'Nueva empresa'}</h3>
               <button className="btn-icon" onClick={() => setShowModal(false)}><X size={16} /></button>
             </div>
             <form onSubmit={handleSave}>
               <div className="modal-body">
                 {error && <div className="login-error">{error}</div>}
                 <div className="field">
-                  <label htmlFor="f-nombre">Nombre del fundo *</label>
-                  <input id="f-nombre" type="text" placeholder="Fundo Los Almendros" value={form.nombre} onChange={e => setForm(f => ({ ...f, nombre: e.target.value }))} required />
+                  <label htmlFor="f-nombre">Lugar de trabajo / Nombre interno *</label>
+                  <input id="f-nombre" type="text" placeholder="Ej: Fundo Los Almendros / Faena Central" value={form.nombre} onChange={e => setForm(f => ({ ...f, nombre: e.target.value }))} required />
                 </div>
                 <div className="field">
                   <label htmlFor="f-dir">Dirección *</label>

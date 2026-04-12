@@ -85,7 +85,7 @@ export function DashboardPage() {
             <div className="card" style={{ flex: 1 }}>
               <div className="stat-icon amber" style={{ marginBottom: 12 }}><Building2 size={18} /></div>
               <div className="stat-num amber">{loading ? '–' : fundos.length}</div>
-              <div className="stat-label">Fundos</div>
+              <div className="stat-label">Empresas</div>
             </div>
           </div>
 

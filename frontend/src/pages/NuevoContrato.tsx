@@ -179,7 +179,7 @@ export function NuevoContratoPage() {
             {/* STEP 1: PARTES */}
             {step === 1 && (
               <div className="form-section">
-                <div className="form-section-title">Trabajador y fundo</div>
+                <div className="form-section-title">Trabajador y empresa</div>
                 <div className="form-grid">
                   <div className="field">
                     <label htmlFor="sel-trabajador">Trabajador *</label>
@@ -189,14 +189,14 @@ export function NuevoContratoPage() {
                     </select>
                   </div>
                   <div className="field">
-                    <label htmlFor="sel-fundo">Fundo / empresa *</label>
+                    <label htmlFor="sel-fundo">Empresa o Fundo *</label>
                     <select id="sel-fundo" value={form.fundo_id} onChange={e => set('fundo_id', e.target.value)} required>
                       <option value="">Seleccionar...</option>
                       {fundos.map(f => <option key={f.id} value={f.id}>{f.nombre}</option>)}
                     </select>
                     {fundos.length === 0 && (
                       <span style={{ fontSize: 11, color: 'var(--red)' }}>
-                        Sin fundos. <a href="/fundos" style={{ color: 'var(--cyan)', textDecoration: 'underline' }}>Crea uno</a>
+                        Sin empresas. <a href="/fundos" style={{ color: 'var(--cyan)', textDecoration: 'underline' }}>Crea una</a>
                       </span>
                     )}
                   </div>

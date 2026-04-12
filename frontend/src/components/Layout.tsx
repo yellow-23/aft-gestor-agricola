@@ -6,7 +6,7 @@ const navItems = [
   { to: '/', label: 'Inicio', icon: LayoutDashboard, end: true },
   { to: '/trabajadores', label: 'Trabajadores', icon: Users },
   { to: '/contratos', label: 'Contratos', icon: FileText },
-  { to: '/fundos', label: 'Fundos', icon: Building2 },
+  { to: '/fundos', label: 'Empresas', icon: Building2 },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -21,7 +21,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="header-logo-dot">
             <Sprout size={16} color="#020c07" />
           </div>
-          AFT
+          Alberto
         </div>
 
         <nav className="header-nav">
