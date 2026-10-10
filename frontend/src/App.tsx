@@ -7,6 +7,7 @@ import { NuevoTrabajadorPage } from './pages/NuevoTrabajador';
 import { ContratosPage } from './pages/Contratos';
 import { NuevoContratoPage } from './pages/NuevoContrato';
 import { FundosPage } from './pages/Fundos';
+import { FichaPackingPage } from './pages/FichaPacking';
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, loading } = useAuth();
@@ -39,6 +40,7 @@ function AppRoutes() {
       <Route path="/contratos/nuevo" element={<PrivateRoute><NuevoContratoPage /></PrivateRoute>} />
       <Route path="/fundos" element={<PrivateRoute><FundosPage /></PrivateRoute>} />
       <Route path="/fundos/nuevo" element={<PrivateRoute><FundosPage /></PrivateRoute>} />
+      <Route path="/ficha-packing" element={<PrivateRoute><FichaPackingPage /></PrivateRoute>} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

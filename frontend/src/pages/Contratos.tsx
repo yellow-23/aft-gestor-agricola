@@ -46,59 +46,59 @@ export function ContratosPage() {
 
   return (
     <Layout>
-      <div className="page">
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+      <main className="page">
+        <div className="page-head">
           <div>
             <h1 className="page-title">Contratos</h1>
             <p className="page-sub">{filtrados.length} contrato{filtrados.length !== 1 ? 's' : ''}</p>
           </div>
-          <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
-            <div className="search" style={{ width: 260 }}>
-              <Search size={14} />
+          <div className="row">
+            <div className="search" style={{ width: 300 }}>
+              <Search size={20} />
               <input
                 id="buscar-contrato"
-                placeholder="Trabajador, empresa, faena..."
+                placeholder="Trabajador, empresa, faena…"
+                aria-label="Buscar contrato"
                 value={buscar}
                 onChange={e => setBuscar(e.target.value)}
               />
             </div>
             <Link to="/contratos/nuevo" className="btn btn-primary" id="btn-nuevo-contrato">
-              <Plus size={14} /> Nuevo
+              <Plus size={20} /> Nuevo
             </Link>
           </div>
         </div>
 
         {loading ? (
-          <div className="loading-state" style={{ marginTop: 48 }}><div className="spinner" /> Cargando...</div>
+          <div className="loading-state"><div className="spinner" /> Cargando...</div>
         ) : filtrados.length === 0 ? (
-          <div className="empty" style={{ marginTop: 24 }}>
+          <div className="empty">
             <div className="empty-icon"><FileText size={24} /></div>
             <h3>Sin contratos</h3>
             <p>Crea el primer contrato para generar los documentos legales.</p>
-            <Link to="/contratos/nuevo" className="btn btn-primary" style={{ marginTop: 4 }}>
-              <Plus size={14} /> Crear contrato
+            <Link to="/contratos/nuevo" className="btn btn-primary">
+              <Plus size={20} /> Crear contrato
             </Link>
           </div>
         ) : (
           <div className="contracts-list">
             {filtrados.map(c => (
-              <div key={c.id} className="contract-card">
-                <div className="contract-avatar">
+              <article key={c.id} className="contract-card">
+                <div className="avatar" aria-hidden="true">
                   {c.trabajador.nombres[0]}{c.trabajador.apellidos[0]}
                 </div>
 
                 <div className="contract-info">
                   <div className="contract-name">{c.trabajador.nombre_completo}</div>
                   <div className="contract-meta">
-                    <span className="badge badge-green" style={{ marginRight: 6 }}>{c.actividad}</span>
-                    {c.fundo.nombre} ·{' '}
-                    {new Date(c.fecha_ingreso + 'T00:00:00').toLocaleDateString('es-CL')} ·{' '}
-                    <strong>${c.sueldo.toLocaleString('es-CL')}</strong>
+                    {c.fundo.nombre} · {c.actividad} ·{' '}
+                    {new Date(c.fecha_ingreso + 'T00:00:00').toLocaleDateString('es-CL')}
                   </div>
                 </div>
 
-                {/* PDF PILLS */}
-                <div className="contract-pdfs" style={{ display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center' }}>
+                <div className="contract-amount">${c.sueldo.toLocaleString('es-CL')}</div>
+
+                <div className="contract-pdfs">
                   <button
                     id={`pdf-zip-${c.id}`}
                     className="pdf-pill pdf-pill-all"
@@ -106,12 +106,10 @@ export function ContratosPage() {
                     disabled={!!downloading}
                     title="Descargar todo en ZIP"
                   >
-                    {downloading === `${c.id}-todos`
-                      ? <div className="spinner" style={{ width: 12, height: 12 }} />
-                      : <><Archive size={11} /> ZIP</>}
+                    {downloading === `${c.id}-todos` ? <span className="spinner" /> : <Archive size={16} />} Todos
                   </button>
                   {(['contrato', 'ds44', 'reglamento', 'epp'] as const).map(tipo => {
-                    const labels = { contrato: 'CT', ds44: 'DS44', reglamento: 'RI', epp: 'EPP' };
+                    const labels = { contrato: 'Contrato', ds44: 'DS44', reglamento: 'Reglamento', epp: 'EPP' };
                     return (
                       <button
                         key={tipo}
@@ -119,31 +117,28 @@ export function ContratosPage() {
                         className="pdf-pill"
                         onClick={() => handlePdf(c, tipo)}
                         disabled={!!downloading}
-                        title={tipo}
                       >
-                        {downloading === `${c.id}-${tipo}`
-                          ? <div className="spinner" style={{ width: 12, height: 12 }} />
-                          : <><Download size={11} /> {labels[tipo]}</>}
+                        {downloading === `${c.id}-${tipo}` ? <span className="spinner" /> : <Download size={16} />} {labels[tipo]}
                       </button>
                     );
                   })}
                 </div>
 
                 <button
-                  className="btn-icon"
+                  className="btn-icon danger"
+                  aria-label="Eliminar contrato"
+                  title="Eliminar"
                   onClick={() => handleDelete(c.id)}
                   disabled={deleting === c.id}
                   id={`btn-delete-contrato-${c.id}`}
                 >
-                  {deleting === c.id
-                    ? <div className="spinner" style={{ width: 14, height: 14 }} />
-                    : <Trash2 size={14} />}
+                  {deleting === c.id ? <div className="spinner" /> : <Trash2 size={20} />}
                 </button>
-              </div>
+              </article>
             ))}
           </div>
         )}
-      </div>
+      </main>
     </Layout>
   );
 }

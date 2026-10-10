@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Sprout, Lock, User } from 'lucide-react';
+import { Sprout, Lock, User, ArrowRight } from 'lucide-react';
 
 export function LoginPage() {
   const [username, setUsername] = useState('');
@@ -30,7 +30,7 @@ export function LoginPage() {
       <div className="login-card">
         <div className="login-brand">
           <div className="login-brand-mark">
-            <Sprout size={34} color="#020c07" />
+            <Sprout size={34} />
           </div>
           <div>
             <h1>Alberto</h1>
@@ -38,21 +38,19 @@ export function LoginPage() {
           </div>
         </div>
 
-        {error && <div className="login-error">{error}</div>}
+        <form onSubmit={handleSubmit} className="stack">
+          {error && <div className="login-error" role="alert">{error}</div>}
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           <div className="field">
             <label htmlFor="login-username">Usuario</label>
-            <div style={{ position: 'relative' }}>
-              <User size={15} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-3)', pointerEvents: 'none' }} />
+            <div className="input-icon">
+              <User size={20} />
               <input
                 id="login-username"
                 type="text"
-                placeholder="Username"
                 value={username}
                 onChange={e => setUsername(e.target.value)}
                 required
-                style={{ paddingLeft: 38 }}
                 autoComplete="username"
               />
             </div>
@@ -60,16 +58,14 @@ export function LoginPage() {
 
           <div className="field">
             <label htmlFor="login-password">Contraseña</label>
-            <div style={{ position: 'relative' }}>
-              <Lock size={15} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--text-3)', pointerEvents: 'none' }} />
+            <div className="input-icon">
+              <Lock size={20} />
               <input
                 id="login-password"
                 type="password"
-                placeholder="••••••••"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 required
-                style={{ paddingLeft: 38 }}
                 autoComplete="current-password"
               />
             </div>
@@ -78,17 +74,15 @@ export function LoginPage() {
           <button
             id="login-submit"
             type="submit"
-            className="btn btn-primary btn-lg"
+            className="btn btn-primary btn-lg btn-block"
             disabled={loading}
-            style={{ marginTop: 8, justifyContent: 'center' }}
+            style={{ marginTop: 8 }}
           >
-            {loading ? <><div className="spinner" /> Ingresando...</> : 'Ingresar →'}
+            {loading ? <><span className="spinner" /> Ingresando...</> : <>Ingresar <ArrowRight size={20} /></>}
           </button>
         </form>
 
-        <p style={{ textAlign: 'center', marginTop: 28, fontSize: 11, color: 'var(--text-3)' }}>
-          Acceso privado · Alberto
-        </p>
+        <p className="login-foot">Acceso privado · AFT Servicios SpA</p>
       </div>
     </div>
   );

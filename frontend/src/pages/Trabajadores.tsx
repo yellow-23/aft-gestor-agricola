@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Users, Search, Plus, Pencil, Trash2, ChevronRight } from 'lucide-react';
+import { Users, Search, Plus, Trash2, FileText, MapPin } from 'lucide-react';
 import { getTrabajadores, deleteTrabajador } from '../api/client';
 import type { Trabajador } from '../api/types';
 import { Layout } from '../components/Layout';
@@ -38,51 +38,50 @@ export function TrabajadoresPage() {
 
   return (
     <Layout>
-      <div className="page">
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+      <main className="page">
+        <div className="page-head">
           <div>
             <h1 className="page-title">Trabajadores</h1>
             <p className="page-sub">{trabajadores.length} registrado{trabajadores.length !== 1 ? 's' : ''}</p>
           </div>
-          <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap' }}>
-            <div className="search" style={{ width: 260 }}>
-              <Search size={14} />
+          <div className="row">
+            <div className="search" style={{ width: 280 }}>
+              <Search size={20} />
               <input
                 id="buscar-trabajador"
                 type="text"
-                placeholder="Nombre o RUT..."
+                placeholder="Nombre o RUT…"
+                aria-label="Buscar trabajador"
                 value={buscar}
                 onChange={handleSearch}
               />
             </div>
             <Link to="/trabajadores/nuevo" className="btn btn-primary" id="btn-nuevo-trabajador">
-              <Plus size={14} /> Nuevo
+              <Plus size={20} /> Nuevo
             </Link>
           </div>
         </div>
 
         {loading ? (
-          <div className="loading-state" style={{ marginTop: 48 }}><div className="spinner" /> Cargando...</div>
+          <div className="loading-state"><div className="spinner" /> Cargando...</div>
         ) : trabajadores.length === 0 ? (
-          <div className="empty" style={{ marginTop: 24 }}>
+          <div className="empty">
             <div className="empty-icon"><Users size={24} /></div>
             <h3>{buscar ? 'Sin resultados' : 'Sin trabajadores'}</h3>
-            <p>{buscar ? `Nada para "${buscar}"` : 'Registra el primer trabajador para comenzar.'}</p>
+            <p>{buscar ? `Nada para "${buscar}".` : 'Registra el primer trabajador para comenzar.'}</p>
             {!buscar && (
-              <Link to="/trabajadores/nuevo" className="btn btn-primary" style={{ marginTop: 4 }}>
-                <Plus size={14} /> Agregar
+              <Link to="/trabajadores/nuevo" className="btn btn-primary">
+                <Plus size={20} /> Agregar trabajador
               </Link>
             )}
           </div>
         ) : (
           <div className="workers-grid">
             {trabajadores.map(t => (
-              <div key={t.id} className="worker-card">
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                  <div className={`worker-avatar ${t.sexo === 'F' ? 'f' : ''}`}>
-                    {t.nombres[0]}{t.apellidos[0]}
-                  </div>
-                  <div>
+              <article key={t.id} className="worker-card">
+                <div className="worker-head">
+                  <div className="avatar" aria-hidden="true">{t.nombres[0]}{t.apellidos[0]}</div>
+                  <div style={{ minWidth: 0 }}>
                     <div className="worker-name">{t.nombre_completo}</div>
                     <div className="worker-rut">{t.rut}</div>
                   </div>
@@ -92,45 +91,35 @@ export function TrabajadoresPage() {
                   <span className={`badge ${t.nacionalidad === 'Chilena' ? 'badge-green' : 'badge-amber'}`}>
                     {t.nacionalidad}
                   </span>
-                  <span className="badge badge-cyan">
-                    {t.sexo === 'M' ? 'Masculino' : 'Femenino'}
-                  </span>
+                  <span className="badge badge-neutral">{t.sexo === 'M' ? 'Masculino' : 'Femenino'}</span>
                 </div>
 
-                <div style={{ fontSize: 12, color: 'var(--text-2)', display: 'flex', alignItems: 'center', gap: 4 }}>
-                  <span>📍</span> {t.direccion}
-                </div>
+                <div className="meta-line"><MapPin size={16} />{t.direccion}</div>
 
                 <div className="worker-actions">
                   <Link
                     to={`/contratos/nuevo?trabajador=${t.id}`}
-                    className="btn btn-primary btn-sm"
-                    style={{ flex: 1, justifyContent: 'center' }}
-                    title="Crear contrato"
+                    className="btn btn-primary"
                     id={`btn-contrato-${t.id}`}
                   >
-                    <ChevronRight size={13} /> Contrato
-                  </Link>
-                  <Link to={`/trabajadores/${t.id}/editar`} className="btn-icon" title="Editar">
-                    <Pencil size={14} />
+                    <FileText size={16} /> Contrato
                   </Link>
                   <button
-                    className="btn-icon"
+                    className="btn-icon danger"
+                    aria-label={`Desactivar a ${t.nombre_completo}`}
                     title="Desactivar"
                     onClick={() => handleDelete(t.id, t.nombre_completo)}
                     disabled={deleting === t.id}
                     id={`btn-delete-${t.id}`}
                   >
-                    {deleting === t.id
-                      ? <div className="spinner" style={{ width: 14, height: 14 }} />
-                      : <Trash2 size={14} />}
+                    {deleting === t.id ? <div className="spinner" /> : <Trash2 size={20} />}
                   </button>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         )}
-      </div>
+      </main>
     </Layout>
   );
 }

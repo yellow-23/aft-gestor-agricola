@@ -32,32 +32,34 @@ export function NuevoTrabajadorPage() {
   return (
     <Layout>
       <div className="page">
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
-          <button className="btn-icon" onClick={() => navigate('/trabajadores')} id="btn-back">
-            <ArrowLeft size={16} />
-          </button>
-          <div>
-            <h1 className="page-title" style={{ fontSize: 24 }}>Nuevo trabajador</h1>
-            <p className="page-sub">Al guardar podrás crear el contrato de inmediato</p>
+        <div className="page-head">
+          <div className="page-back">
+            <button className="btn-icon" onClick={() => navigate('/trabajadores')} id="btn-back" aria-label="Volver">
+              <ArrowLeft size={20} />
+            </button>
+            <div>
+              <h1 className="page-title">Nuevo trabajador</h1>
+              <p className="page-sub" style={{ marginTop: 2 }}>Al guardar podrás crear el contrato de inmediato.</p>
+            </div>
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} style={{ maxWidth: 680, marginTop: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
-          {error && <div className="login-error">{error}</div>}
+        <form onSubmit={handleSubmit} className="stack" style={{ maxWidth: 'var(--size-form)' }}>
+          {error && <div className="login-error" role="alert">{error}</div>}
 
           <div className="form-section">
-            <div className="form-section-title">Datos personales</div>
+            <div className="form-section-title"><span className="num">1</span>Datos personales</div>
             <div className="form-grid">
               <div className="field">
-                <label htmlFor="nombres">Nombres *</label>
+                <label htmlFor="nombres">Nombres<span className="req">*</span></label>
                 <input id="nombres" type="text" placeholder="Ej: Carlos Andrés" value={form.nombres} onChange={e => set('nombres', e.target.value)} required />
               </div>
               <div className="field">
-                <label htmlFor="apellidos">Apellidos *</label>
+                <label htmlFor="apellidos">Apellidos<span className="req">*</span></label>
                 <input id="apellidos" type="text" placeholder="Ej: González Pérez" value={form.apellidos} onChange={e => set('apellidos', e.target.value)} required />
               </div>
-              <div className="field">
-                <label htmlFor="rut">RUT *</label>
+              <div className="field input-mono">
+                <label htmlFor="rut">RUT<span className="req">*</span></label>
                 <input id="rut" type="text" placeholder="12.345.678-9" value={form.rut} onChange={e => set('rut', e.target.value)} required />
               </div>
               <div className="field">
@@ -69,29 +71,29 @@ export function NuevoTrabajadorPage() {
                 </select>
               </div>
               <div className="field">
-                <label htmlFor="fecha-nac">Fecha de nacimiento *</label>
+                <label htmlFor="fecha-nac">Fecha de nacimiento<span className="req">*</span></label>
                 <input id="fecha-nac" type="date" value={form.fecha_nacimiento} onChange={e => set('fecha_nacimiento', e.target.value)} required max={new Date().toISOString().split('T')[0]} />
               </div>
               <div className="field">
-                <label htmlFor="sexo">Sexo *</label>
+                <label htmlFor="sexo">Sexo<span className="req">*</span></label>
                 <select id="sexo" value={form.sexo} onChange={e => set('sexo', e.target.value as 'M' | 'F')}>
                   <option value="M">Masculino</option>
                   <option value="F">Femenino</option>
                 </select>
               </div>
               <div className="field form-full">
-                <label htmlFor="direccion">Dirección *</label>
+                <label htmlFor="direccion">Dirección<span className="req">*</span></label>
                 <input id="direccion" type="text" placeholder="Av. Principal 123, Curicó" value={form.direccion} onChange={e => set('direccion', e.target.value)} required />
               </div>
             </div>
           </div>
 
-          <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+          <div className="form-actions">
             <button type="button" className="btn btn-secondary" onClick={() => navigate('/trabajadores')}>
               Cancelar
             </button>
             <button id="btn-guardar" type="submit" className="btn btn-primary" disabled={loading}>
-              {loading ? <><div className="spinner" /> Guardando...</> : 'Guardar y crear contrato →'}
+              {loading ? <><div className="spinner" /> Guardando...</> : 'Guardar y crear contrato'}
             </button>
           </div>
         </form>
